@@ -1,6 +1,5 @@
 #import "@preview/theorion:0.4.1": *
 #import cosmos.clouds: *
-#import "@preview/physica:0.9.8": *
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.1": *
 #show: show-theorion
@@ -16,15 +15,15 @@
 #definition(title: "モノイダル圏")[
   *モノイダル圏* とは、圏 $cal(C)$ と次のデータからなる。
 
-  - 双関手 $tensor: cal(C) times cal(C) -> cal(C)$
+  - 双関手 $times.o: cal(C) times cal(C) -> cal(C)$
   - 単位対象 $I$
   - 自然同型
     $
-      alpha_(X,Y,Z): (X tensor Y) tensor Z -> X tensor (Y tensor Z)
+      alpha_(X,Y,Z): (X times.o Y) times.o Z -> X times.o (Y times.o Z)
     $
   - 自然同型
     $
-      lambda_X: I tensor X -> X, quad rho_X: X tensor I -> X
+      lambda_X: I times.o X -> X, quad rho_X: X times.o I -> X
     $
 
   これらは五角形等式と三角形等式を満たす。
@@ -34,8 +33,8 @@
 
 #example(title: "基本例")[
   1. $bold("Set")$ は直積 $times$ と一点集合 $1$ によりモノイダル圏である。
-  2. $bold("Vect")_k$ はテンソル積 $tensor_k$ と $k$ によりモノイダル圏である。
-  3. $R$-$bold("Mod")$ は、$R$ が可換環なら $tensor_R$ によりモノイダル圏である。
+  2. $bold("Vect")_k$ はテンソル積 $times.o _k$ と $k$ によりモノイダル圏である。
+  3. $R$-$bold("Mod")$ は、$R$ が可換環なら $times.o _R$ によりモノイダル圏である。
   4. 任意の有限積を持つ圏は、積をテンソル、終対象を単位対象としてモノイダル圏になる。
 ]
 
@@ -50,7 +49,7 @@
 #remark[
   この定理により、実際の計算ではしばしば
   $
-    (X tensor Y) tensor Z = X tensor (Y tensor Z)
+    (X times.o Y) times.o Z = X times.o (Y times.o Z)
   $
   と書いても混乱が生じない。ただし、これは記法上の省略であり、背後には結合子とコヒーレンスが存在する。
 ]
@@ -62,7 +61,7 @@
 #definition(title: "lax モノイダル関手と強モノイダル関手")[
   モノイダル圏 $cal(C), cal(D)$ の間の関手 $F: cal(C) -> cal(D)$ が *lax モノイダル関手* であるとは、射
   $
-    phi_(X,Y): F X tensor F Y -> F(X tensor Y), quad phi_0: I_cal(D) -> F(I_cal(C))
+    phi_(X,Y): F X times.o F Y -> F(X times.o Y), quad phi_0: I_cal(D) -> F(I_cal(C))
   $
   を持ち、結合子と単位子に関する整合性を満たすことをいう。
 
@@ -80,7 +79,7 @@
 #definition(title: "編み込みモノイダル圏")[
   モノイダル圏 $cal(C)$ が *編み込み* を持つとは、自然同型
   $
-    beta_(X,Y): X tensor Y -> Y tensor X
+    beta_(X,Y): X times.o Y -> Y times.o X
   $
   が与えられ、二つの六角形等式を満たすことをいう。
 ]
@@ -88,7 +87,7 @@
 #definition(title: "対称モノイダル圏")[
   編み込みモノイダル圏が *対称* であるとは、
   $
-    beta_(Y,X) compose beta_(X,Y) = id_(X tensor Y)
+    beta_(Y,X) compose beta_(X,Y) = id_(X times.o Y)
   $
   が成り立つことをいう。
 ]
@@ -102,9 +101,9 @@
 テンソル積に対して内部 Hom が存在すると、関数空間やカリー化を圏論的に扱える。
 
 #definition(title: "閉モノイダル圏")[
-  モノイダル圏 $cal(C)$ が *右閉* であるとは、任意の対象 $Y$ に対して関手 $- tensor Y$ が右随伴 $[Y,-]$ を持つことをいう。すなわち自然同型
+  モノイダル圏 $cal(C)$ が *右閉* であるとは、任意の対象 $Y$ に対して関手 $- times.o Y$ が右随伴 $[Y,-]$ を持つことをいう。すなわち自然同型
   $
-    cal(C)(X tensor Y, Z) approx cal(C)(X, [Y,Z])
+    cal(C)(X times.o Y, Z) approx cal(C)(X, [Y,Z])
   $
   が存在する。
 ]
@@ -146,13 +145,13 @@ uncurry f (x, y) = f x y
 通常の圏では Hom は集合である。豊穣圏では、Hom を任意のモノイダル圏の対象に置き換える。
 
 #definition(title: "V-豊穣圏")[
-  モノイダル圏 $(cal(V), tensor, I)$ に対し、*$cal(V)$-豊穣圏* $cal(C)$ は次のデータからなる。
+  モノイダル圏 $(cal(V), times.o, I)$ に対し、*$cal(V)$-豊穣圏* $cal(C)$ は次のデータからなる。
 
   - 対象の集まり $op("ob")(cal(C))$
   - 各 $X, Y$ に対する Hom 対象 $cal(C)(X,Y) in cal(V)$
   - 合成射
     $
-      cal(C)(Y,Z) tensor cal(C)(X,Y) -> cal(C)(X,Z)
+      cal(C)(Y,Z) times.o cal(C)(X,Y) -> cal(C)(X,Z)
     $
   - 単位射 $I -> cal(C)(X,X)$
 
@@ -200,7 +199,7 @@ $
 
 == 線形論理と資源性
 
-閉対称モノイダル圏は、線形論理の意味論を与える。テンソル積 $A tensor B$ は二つの資源を同時に使うことを表し、内部 Hom $[A,B]$ は $A$ を消費して $B$ を生み出す過程を表す。
+閉対称モノイダル圏は、線形論理の意味論を与える。テンソル積 $A times.o B$ は二つの資源を同時に使うことを表し、内部 Hom $[A,B]$ は $A$ を消費して $B$ を生み出す過程を表す。
 
 #figure(
   caption: [線形論理と閉対称モノイダル圏],
@@ -214,7 +213,7 @@ $
 
     table.header[*論理*][*圏論*][*意味*],
     [乗法的連言],
-    [$A tensor B$],
+    [$A times.o B$],
     [両方の資源を使う],
     [線形含意],
     [$[A,B]$],

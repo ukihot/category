@@ -21,6 +21,8 @@ This volume establishes the basic grammar required to reason categorically acros
 
 #outline(depth: 2)
 
+#pagebreak()
+
 = 圏と言語
 #include "manuscripts/ch01_categories_and_language.typ"
 

@@ -21,6 +21,8 @@ This volume demonstrates how category theory functions as a unifying framework r
 
 #outline(depth: 2)
 
+#pagebreak()
+
 = サイズ・骨格・内部圏
 #include "manuscripts/ch08_size_and_internal_structure.typ"
 

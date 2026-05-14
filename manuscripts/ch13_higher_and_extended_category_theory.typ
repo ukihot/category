@@ -1,5 +1,6 @@
 #import "@preview/theorion:0.4.1": *
 #import cosmos.clouds: *
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
 #show: show-theorion
 
 上巻で扱った圏では、対象と射が基本的な構成要素であった。しかし圏論を実際に使うと、射の間にも射が現れる。関手の間には自然変換があり、自然変換の間には修正がある。随伴も、等式としてではなく同型やさらに高次の同値として成り立つことが多い。高次圏論は、この階層を理論の中心に据える。
@@ -72,6 +73,18 @@
     eta: 1_A -> g f, quad epsilon: f g -> 1_B
   $
   が存在し、三角等式を満たすことをいう。
+
+  #align(center)[
+    #diagram(cell-size: 20mm, $
+      f edge(eta f, ->) edge("dr", id_f, ->) & g f f edge("d", g epsilon, ->) \
+      & f
+    $)
+    #h(2em)
+    #diagram(cell-size: 20mm, $
+      g edge(g eta, ->) edge("dr", id_g, ->) & g f g edge("d", epsilon g, ->) \
+      & g
+    $)
+  ]
 ]
 
 この定義は通常の圏の随伴を含む。$cal(K)=bold("Cat")$ とすれば、1-細胞は関手、2-細胞は自然変換であり、第7章の随伴が回収される。
@@ -130,7 +143,13 @@ Kan 拡張の公式に現れるコンマ圏は、対象の上または下にあ�
   関手 $F: cal(A) -> cal(C)$ および $G: cal(B) -> cal(C)$ に対し、*コンマ圏* $(F arrow.b G)$ は次のように定義される。
   - *対象*：三つ組 $(A, B, u)$。ただし、$A in "Ob"(cal(A)), B in "Ob"(cal(B))$ であり、$u: F(A) -> G(B)$ は $cal(C)$ の射である。
   - *射*：$(A, B, u) -> (A', B', u')$ は、射の組 $(a: A -> A', b: B -> B')$ であって、次の可換図式を満たすものである：
-    $ G(b) compose u = u' compose F(a) $
+
+    #align(center)[
+      #diagram(cell-size: 18mm, $
+        F(A) edge(F(a), ->) edge("d", u, ->) & F(A') edge("d", u', ->) \
+        G(B) edge(G(b), ->) & G(B')
+      $)
+    ]
 ]
 #example[
   対象 $C in cal(C)$ に対するスライス圏 $cal(C)/C$ は、$id_cal(C) arrow.b C$ の形のコンマ圏である。余スライス圏 $C/cal(C)$ も同様に得られる。

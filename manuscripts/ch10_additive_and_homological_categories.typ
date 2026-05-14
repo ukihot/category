@@ -1,5 +1,6 @@
 #import "@preview/theorion:0.4.1": *
 #import cosmos.clouds: *
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
 #show: show-theorion
 
 圏論の基本概念は、対象の内部を見ない。しかし代数学や幾何学では、射そのものを足し合わせ、差を取り、核や余核を計算する必要がある。本章では、そのような線形的な操作が可能な圏を扱う。加法圏、アーベル圏、完全列、複体、導来圏は、現代数学におけるホモロジー的思考の基礎である。
@@ -99,9 +100,11 @@
 
 #theorem(title: "射の標準分解")[
   アーベル圏における任意の射 $f: A -> B$ は
-  $
-    A arrow.r.twohead op("coim")(f) arrow.r^(approx) op("im")(f) arrow.r.hook B
-  $
+  #align(center)[
+    #diagram(cell-size: 18mm, $
+      A edge(->>) & op("coim")(f) edge(approx, ->) & op("im")(f) edge("hook-->") & B
+    $)
+  ]
   と分解される。
 ]
 
@@ -130,9 +133,11 @@
 ]
 
 特に
-$
-  0 -> A arrow.r^i B arrow.r^p C -> 0
-$
+#align(center)[
+  #diagram(cell-size: 14mm, $
+    0 edge(->) & A edge(i, ->) & B edge(p, ->) & C edge(->) & 0
+  $)
+]
 が完全であるとき、これを *短完全列* という。このとき $i$ は $A$ を $B$ の部分対象として実現し、$p$ は $B$ から商 $C$ を取り出す。したがって $B$ は $A$ による $C$ の拡張と見なせる。
 
 #definition(title: "分裂短完全列")[
@@ -157,25 +162,23 @@ $
 
 #lemma(title: "五項補題")[
   アーベル圏における可換図式
-  $
-    A_1 -> A_2 -> A_3 -> A_4 -> A_5
-  $
-  および
-  $
-    B_1 -> B_2 -> B_3 -> B_4 -> B_5
-  $
+  #align(center)[
+    #diagram(cell-size: 13mm, $
+      A_1 edge(->) edge("d", a_1, ->) & A_2 edge(->) edge("d", a_2, ->) & A_3 edge(->) edge("d", a_3, ->) & A_4 edge(->) edge("d", a_4, ->) & A_5 edge("d", a_5, ->) \
+      B_1 edge(->) & B_2 edge(->) & B_3 edge(->) & B_4 edge(->) & B_5
+    $)
+  ]
   を考える。上下の列が完全で、縦射 $A_i -> B_i$ のうち $i=1,2,4,5$ が同型であるとする。適切な単射性・全射性の条件が満たされれば、中央の縦射 $A_3 -> B_3$ も同型である。
 ]
 
 #lemma(title: "蛇の補題")[
   アーベル圏における短完全列の射
-  $
-    0 -> A -> B -> C -> 0
-  $
-  から
-  $
-    0 -> A' -> B' -> C' -> 0
-  $
+  #align(center)[
+    #diagram(cell-size: 14mm, $
+      0 edge(->) & A edge(->) edge("d", a, ->) & B edge(->) edge("d", b, ->) & C edge(->) edge("d", c, ->) & 0 \
+      0 edge(->) & A' edge(->) & B' edge(->) & C' edge(->) & 0
+    $)
+  ]
   が与えられると、自然な接続射により長完全列
   $
     0 -> op("ker")(a) -> op("ker")(b) -> op("ker")(c)
@@ -208,6 +211,13 @@ $
 
 #definition(title: "複体の射とホモトピー")[
   複体の射 $f: C_bullet -> D_bullet$ は、各次数の射 $f_n: C_n -> D_n$ で微分と可換なものをいう。
+
+  #align(center)[
+    #diagram(cell-size: 16mm, $
+      C_n edge(d_n, ->) edge("d", f_n, ->) & C_(n-1) edge("d", f_(n-1), ->) \
+      D_n edge(d_n, ->) & D_(n-1)
+    $)
+  ]
 
   二つの複体射 $f,g$ が *鎖ホモトピック* であるとは、射 $h_n: C_n -> D_(n+1)$ が存在して
   $

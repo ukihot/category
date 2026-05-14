@@ -2,6 +2,7 @@
 #import cosmos.clouds: *
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.1": *
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
 #show: show-theorion
 #show: codly-init.with()
 #codly(languages: codly-languages)
@@ -25,13 +26,19 @@ $ G F G F arrow.r^(G epsilon F) G F $
 
   これらは次の図式、すなわち結合律と単位律を満たす。
 
-  $
-    mu compose T mu = mu compose mu T
-  $
+  #align(center)[
+    #diagram(cell-size: 20mm, $
+      T T T edge(T mu, ->) edge("d", mu T, ->) & T T edge("d", mu, ->) \
+      T T edge(mu, ->) & T
+    $)
+  ]
 
-  $
-    mu compose T eta = id_T = mu compose eta T
-  $
+  #align(center)[
+    #diagram(cell-size: 18mm, $
+      T edge(eta T, ->) edge("dr", id_T, ->) & T T edge("d", mu, ->) & T edge(T eta, <-) edge("dl", id_T, ->) \
+      & T
+    $)
+  ]
 ]
 
 #theorem(title: "随伴から生じるモナド")[
@@ -76,9 +83,11 @@ $ G F G F arrow.r^(G epsilon F) G F $
   - $cal(C)_T(X, Y)=cal(C)(X, T Y)$
   - 恒等射は $eta_X: X -> T X$
   - $f: X -> T Y$, $g: Y -> T Z$ の合成は
-    $
-      X arrow.r^f T Y arrow.r^(T g) T T Z arrow.r^(mu_Z) T Z
-    $
+    #align(center)[
+      #diagram(cell-size: 16mm, $
+        X edge(f, ->) & T Y edge(T g, ->) & T T Z edge(mu_Z, ->) & T Z
+      $)
+    ]
 ]
 
 #theorem(title: "Kleisli 合成の結合律")[
@@ -119,7 +128,16 @@ Kleisli 圏が「モナド的計算」を表すのに対し、Eilenberg--Moore �
   $
     f compose a = b compose T f
   $
-  を満たすものとする。これらからなる圏を $cal(C)^T$ と書き、*Eilenberg--Moore 圏* という。
+  を満たす、すなわち次の図式を可換にするものとする。
+
+  #align(center)[
+    #diagram(cell-size: 18mm, $
+      T A edge(T f, ->) edge("d", a, ->) & T B edge("d", b, ->) \
+      A edge(f, ->) & B
+    $)
+  ]
+
+  これらからなる圏を $cal(C)^T$ と書き、*Eilenberg--Moore 圏* という。
 ]
 
 #example(title: "自由モノイドモナドの代数")[

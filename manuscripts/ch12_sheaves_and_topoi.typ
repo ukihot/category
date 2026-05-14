@@ -2,6 +2,7 @@
 #import cosmos.clouds: *
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.1": *
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
 #show: show-theorion
 #show: codly-init.with()
 #codly(languages: codly-languages)
@@ -54,9 +55,12 @@ $
 ]
 
 この条件は、次の図式が等化子であることとして表せる。
-$
-  cal(F)(U) -> product_i cal(F)(U_i) arrow.r.double product_(i,j) cal(F)(U_i inter U_j)
-$
+
+#align(center)[
+  #diagram(cell-size: 22mm, $
+    cal(F)(U) edge(->) & product_i cal(F)(U_i) edge("r", rho_1, ->) edge("r", rho_2, ->) & product_(i,j) cal(F)(U_i inter U_j)
+  $)
+]
 
 #example(title: "層と非層")[
   連続関数、可微分関数、正則関数、微分形式は層をなす。一方、定数前層 $U |-> A$ は、開集合が複数の連結成分を持つ場合に貼り合わせ条件を満たさないことがある。これを層化すると、局所定数関数の層が得られる。
@@ -161,14 +165,13 @@ Grothendieck トポスより公理を弱め、集合の圏に似た論理的構�
 
 #definition(title: "部分対象分類子")[
   *部分対象分類子* とは、対象 $Omega$ と射 $"true": 1 -> Omega$ であって、任意のモノ射 $m: A -> B$ に対し、一意の射 $chi_m: B -> Omega$ が存在し、次の正方形が引き戻しになるものをいう。
-  $
-    A -> 1
-  $
-  および
-  $
-    B arrow.r^(chi_m) Omega
-  $
-  が $"true":1 -> Omega$ に沿って引き戻される。
+
+  #align(center)[
+    #diagram(cell-size: 18mm, $
+      A edge(->) edge("d", m, "hook-->") & 1 edge("d", "true", ->) \
+      B edge(chi_m, ->) & Omega
+    $)
+  ]
 ]
 
 #example[

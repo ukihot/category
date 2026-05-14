@@ -2,6 +2,7 @@
 #import cosmos.clouds: *
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.1": *
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
 #show: show-theorion
 #show: codly-init.with()
 #codly(languages: codly-languages)
@@ -30,6 +31,13 @@
 ]
 
 結合子 $alpha$ と単位子 $lambda, rho$ は、テンソル積が厳密な意味で結合的・単位的でなくても、同型を通じて一貫して振る舞うことを保証する。
+
+#align(center)[
+  #diagram(cell-size: 22mm, $
+    ((W times.o X) times.o Y) times.o Z edge(alpha, ->) edge("d", alpha times.o 1_Z, ->) & (W times.o X) times.o (Y times.o Z) edge(alpha, ->) & W times.o (X times.o (Y times.o Z)) \
+    (W times.o (X times.o Y)) times.o Z edge(alpha, ->) && W times.o ((X times.o Y) times.o Z) edge("u", 1_W times.o alpha, ->)
+  $)
+]
 
 #example(title: "基本例")[
   1. $bold("Set")$ は直積 $times$ と一点集合 $1$ によりモノイダル圏である。
@@ -64,6 +72,13 @@
     phi_(X,Y): F X times.o F Y -> F(X times.o Y), quad phi_0: I_cal(D) -> F(I_cal(C))
   $
   を持ち、結合子と単位子に関する整合性を満たすことをいう。
+
+  #align(center)[
+    #diagram(cell-size: 21mm, $
+      (F X times.o F Y) times.o F Z edge(phi_(X,Y) times.o 1, ->) edge("d", alpha, ->) & F(X times.o Y) times.o F Z edge(phi_(X times.o Y,Z), ->) & F((X times.o Y) times.o Z) edge("d", F alpha, ->) \
+      F X times.o (F Y times.o F Z) edge(1 times.o phi_(Y,Z), ->) & F X times.o F(Y times.o Z) edge(phi_(X,Y times.o Z), ->) & F(X times.o (Y times.o Z))
+    $)
+  ]
 
   これらの構造射が同型であるとき、$F$ を *強モノイダル関手* という。
 ]

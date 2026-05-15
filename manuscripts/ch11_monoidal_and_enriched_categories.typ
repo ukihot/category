@@ -2,7 +2,7 @@
 #import cosmos.clouds: *
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.1": *
-#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #show: show-theorion
 #show: codly-init.with()
 #codly(languages: codly-languages)
@@ -33,16 +33,19 @@
 結合子 $alpha$ と単位子 $lambda, rho$ は、テンソル積が厳密な意味で結合的・単位的でなくても、同型を通じて一貫して振る舞うことを保証する。
 
 #align(center)[
-  #diagram(cell-size: 22mm, $
-    ((W times.o X) times.o Y) times.o Z edge(alpha, ->) edge("d", alpha times.o 1_Z, ->) & (W times.o X) times.o (Y times.o Z) edge(alpha, ->) & W times.o (X times.o (Y times.o Z)) \
-    (W times.o (X times.o Y)) times.o Z edge(alpha, ->) && W times.o ((X times.o Y) times.o Z) edge("u", 1_W times.o alpha, ->)
-  $)
+  #diagram(
+    cell-size: 22mm,
+    $
+      ((W times.o X) times.o Y) times.o Z edge(alpha, ->) edge("d", alpha times.o 1_Z, ->) & (W times.o X) times.o (Y times.o Z) edge(alpha, ->) & W times.o (X times.o (Y times.o Z)) \
+      (W times.o (X times.o Y)) times.o Z edge(alpha, ->) && W times.o ((X times.o Y) times.o Z) edge("u", 1_W times.o alpha, ->)
+    $,
+  )
 ]
 
 #example(title: "基本例")[
   1. $bold("Set")$ は直積 $times$ と一点集合 $1$ によりモノイダル圏である。
-  2. $bold("Vect")_k$ はテンソル積 $times.o _k$ と $k$ によりモノイダル圏である。
-  3. $R$-$bold("Mod")$ は、$R$ が可換環なら $times.o _R$ によりモノイダル圏である。
+  2. $bold("Vect")_k$ はテンソル積 $times.o_k$ と $k$ によりモノイダル圏である。
+  3. $R$-$bold("Mod")$ は、$R$ が可換環なら $times.o_R$ によりモノイダル圏である。
   4. 任意の有限積を持つ圏は、積をテンソル、終対象を単位対象としてモノイダル圏になる。
 ]
 
@@ -74,10 +77,13 @@
   を持ち、結合子と単位子に関する整合性を満たすことをいう。
 
   #align(center)[
-    #diagram(cell-size: 21mm, $
-      (F X times.o F Y) times.o F Z edge(phi_(X,Y) times.o 1, ->) edge("d", alpha, ->) & F(X times.o Y) times.o F Z edge(phi_(X times.o Y,Z), ->) & F((X times.o Y) times.o Z) edge("d", F alpha, ->) \
-      F X times.o (F Y times.o F Z) edge(1 times.o phi_(Y,Z), ->) & F X times.o F(Y times.o Z) edge(phi_(X,Y times.o Z), ->) & F(X times.o (Y times.o Z))
-    $)
+    #diagram(
+      cell-size: 21mm,
+      $
+        (F X times.o F Y) times.o F Z edge(phi_(X,Y) times.o 1, ->) edge("d", alpha, ->) & F(X times.o Y) times.o F Z edge(phi_(X times.o Y,Z), ->) & F((X times.o Y) times.o Z) edge("d", F alpha, ->) \
+        F X times.o (F Y times.o F Z) edge(1 times.o phi_(Y,Z), ->) & F X times.o F(Y times.o Z) edge(phi_(X,Y times.o Z), ->) & F(X times.o (Y times.o Z))
+      $,
+    )
   ]
 
   これらの構造射が同型であるとき、$F$ を *強モノイダル関手* という。
@@ -121,6 +127,16 @@
     cal(C)(X times.o Y, Z) approx cal(C)(X, [Y,Z])
   $
   が存在する。
+
+  #align(center, fletcher.diagram(
+    spacing: 42pt,
+    node((0, 1), $X times.o Y$),
+    node((1, 1), $Z$),
+    node((0, 0), $X$),
+    node((1, 0), $[Y,Z]$),
+    edge((0, 1), (1, 1), $f$, "->"),
+    edge((0, 0), (1, 0), $lambda f$, "->"),
+  ))
 ]
 
 #example(title: "直積閉圏")[
@@ -227,19 +243,11 @@ $
     fill: (x, y) => if y > 0 and calc.rem(y, 2) == 0 { rgb("#efefef") },
 
     table.header[*論理*][*圏論*][*意味*],
-    [乗法的連言],
-    [$A times.o B$],
-    [両方の資源を使う],
-    [線形含意],
-    [$[A,B]$],
-    [$A$ を $B$ に変換する],
-    [単位],
-    [$I$],
-    [空の資源],
-    [指数],
-    [余モナド的構造],
-    [複製可能な資源],
-  )
+    [乗法的連言], [$A times.o B$], [両方の資源を使う],
+    [線形含意], [$[A,B]$], [$A$ を $B$ に変換する],
+    [単位], [$I$], [空の資源],
+    [指数], [余モナド的構造], [複製可能な資源],
+  ),
 )
 
 == まとめ

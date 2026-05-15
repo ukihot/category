@@ -2,7 +2,7 @@
 #import cosmos.clouds: *
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.1": *
-#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #show: show-theorion
 #show: codly-init.with()
 #codly(languages: codly-languages)
@@ -48,18 +48,21 @@ $
 
   1. *局所性*：$s,t in cal(F)(U)$ がすべての $i$ で $s|_(U_i)=t|_(U_i)$ を満たすなら、$s=t$。
   2. *貼り合わせ*：各 $i$ に $s_i in cal(F)(U_i)$ が与えられ、すべての $i,j$ について
-     $
-       s_i|_(U_i inter U_j)=s_j|_(U_i inter U_j)
-     $
-     が成り立つなら、ある一意な $s in cal(F)(U)$ が存在して $s|_(U_i)=s_i$ となる。
+    $
+      s_i|_(U_i inter U_j)=s_j|_(U_i inter U_j)
+    $
+    が成り立つなら、ある一意な $s in cal(F)(U)$ が存在して $s|_(U_i)=s_i$ となる。
 ]
 
 この条件は、次の図式が等化子であることとして表せる。
 
 #align(center)[
-  #diagram(cell-size: 22mm, $
-    cal(F)(U) edge(->) & product_i cal(F)(U_i) edge("r", rho_1, ->) edge("r", rho_2, ->) & product_(i,j) cal(F)(U_i inter U_j)
-  $)
+  #diagram(
+    cell-size: 22mm,
+    $
+      cal(F)(U) edge(->) & product_i cal(F)(U_i) edge("r", rho_1, ->) edge("r", rho_2, ->) & product_(i,j) cal(F)(U_i inter U_j)
+    $,
+  )
 ]
 
 #example(title: "層と非層")[
@@ -97,6 +100,17 @@ $
 ]
 
 層化は、前層から局所性と貼り合わせを強制して得られる最良の層である。圏論的には、層化関手は包含 $bold("Sh")(X) -> bold("PSh")(X)$ の左随伴である。
+
+#align(center, fletcher.diagram(
+  spacing: 48pt,
+  node((0, 1), $bold("PSh")(X)$),
+  node((1, 1), $bold("Sh")(X)$),
+  node((0, 0), $cal(F)$),
+  node((1, 0), $cal(F)^a$),
+  edge((0, 1), (1, 1), $(-)^a$, "->"),
+  edge((1, 1), (0, 1), $i$, "hook-->"),
+  edge((0, 0), (1, 0), $eta_cal(F)$, "->"),
+))
 
 == 層の圏
 
@@ -167,10 +181,13 @@ Grothendieck トポスより公理を弱め、集合の圏に似た論理的構�
   *部分対象分類子* とは、対象 $Omega$ と射 $"true": 1 -> Omega$ であって、任意のモノ射 $m: A -> B$ に対し、一意の射 $chi_m: B -> Omega$ が存在し、次の正方形が引き戻しになるものをいう。
 
   #align(center)[
-    #diagram(cell-size: 18mm, $
-      A edge(->) edge("d", m, "hook-->") & 1 edge("d", "true", ->) \
-      B edge(chi_m, ->) & Omega
-    $)
+    #diagram(
+      cell-size: 18mm,
+      $
+        A edge(->) edge("d", m, "hook-->") & 1 edge("d", "true", ->) \
+                         B edge(chi_m, ->) & Omega
+      $,
+    )
   ]
 ]
 
@@ -195,6 +212,17 @@ $
   bold("Sh")(X) -> bold("Sh")(Y)
 $
 を誘導する。このため、トポスは空間の一般化として振る舞う。
+
+#align(center, fletcher.diagram(
+  spacing: 50pt,
+  node((0, 1), $X$),
+  node((1, 1), $Y$),
+  node((0, 0), $bold("Sh")(X)$),
+  node((1, 0), $bold("Sh")(Y)$),
+  edge((0, 1), (1, 1), $f$, "->"),
+  edge((0, 0), (1, 0), $f_*$, "->"),
+  edge((1, 0), (0, 0), $f^*$, "->"),
+))
 
 #definition(title: "点")[
   トポス $cal(E)$ の *点* とは、幾何学的射
@@ -230,11 +258,11 @@ $
 #definition(title: "層コホモロジー")[
   位相空間 $X$ 上のアーベル群値層 $cal(F)$ に対し、大域切断関手
   $
-    Gamma(X,-): bold("Sh")(X,bold("Ab")) -> bold("Ab")
+    Gamma(X, -): bold("Sh")(X,bold("Ab")) -> bold("Ab")
   $
   の右導来関手を
   $
-    H^n(X,cal(F)) = R^n Gamma(X,cal(F))
+    H^n(X,cal(F)) = R^n Gamma(X, cal(F))
   $
   と書き、$cal(F)$ の *層コホモロジー* という。
 ]

@@ -9,11 +9,11 @@
 #definition(title: "Hom 関手 (Hom Functor)")[
   圏 $cal(C)$ の対象 $X$ を固定したとき：
 
-  **共変Hom関手** $h^X := cal(C)(X, -): cal(C) -> bold("Set")$ は
+  *共変Hom関手* $h^X := cal(C)(X, -): cal(C) -> bold("Set")$ は
   - 各対象 $Y$ に集合 $h^X(Y) := cal(C)(X, Y)$（$X$ から $Y$ へのすべての射の集合）を対応
   - 射 $g: Y -> Z$ に写像 $g_*: h^X(Y) -> h^X(Z)$ を対応。$f in cal(C)(X, Y)$ に対して $g_*(f) := g compose f$
 
-  **反変Hom関手** $h_X := cal(C)(-, X): cal(C)^op -> bold("Set")$ は
+  *反変Hom関手* $h_X := cal(C)(-, X): cal(C)^op -> bold("Set")$ は
   - 各対象 $Y$ に集合 $h_X(Y) := cal(C)(Y, X)$ を対応
   - 射 $f: Y -> Z$ に写像 $f^*: h_X(Z) -> h_X(Y)$ を対応。$g in cal(C)(Z, X)$ に対して $f^*(g) := g compose f$
 ]
@@ -50,14 +50,14 @@
 #lemma(title: "米田の補題 (Yoneda Lemma)")[
   圏 $cal(C)$ の対象 $X$ と関手 $F: cal(C) -> bold("Set")$ に対し、次の全単射が存在する：
   $$ op("Nat")(h^X, F) approx F(X) $$
-  
+
   この対応は、自然変換 $alpha: h^X -> F$ を、その $X$ での成分 $alpha_X(id_X) in F(X)$ へと送る。すなわち：
   - *順方向*：自然変換 $alpha mapsto a_X = alpha_X(id_X) in F(X)$
   - *逆方向*：元 $a in F(X)$ から、成分 $alpha_Y(f) := F(f)(a)$ で定義される自然変換 $alpha$ を復元
 
   この対応は $X$ と $F$ について自然である。
 
-  **特殊な場合** ($F = h^Y$ として)：
+  *特殊な場合* ($F = h^Y$ として)：
   $$ op("Nat")(h^X, h^Y) approx cal(C)(Y, X) $$
   が得られ、これが米田埋め込み定理の基礎となる。
 ]
@@ -71,13 +71,15 @@
 
   *自然性の確認*：任意の $g: Y -> Z$ に対して、次の図式が可換であることを示す。
   $
-  cal(C)(X, Y) &arrow.r^(g_*) & cal(C)(X, Z) \
-  arrow.b^(alpha_Y) & & arrow.b^(alpha_Z) \
-  F(Y) &arrow.r^(F(g)) & F(Z)
+         cal(C)(X, Y) & arrow.r^(g_*)  &      cal(C)(X, Z) \
+    arrow.b^(alpha_Y) &                & arrow.b^(alpha_Z) \
+                 F(Y) & arrow.r^(F(g)) &              F(Z)
   $
 
   $f in cal(C)(X, Y)$ に対して：
-  $ F(g)(alpha_Y(f)) = F(g)(F(f)(a)) = F(g circle f)(a) = alpha_Z(g circle f) = alpha_Z(g_*(f)) $
+  $
+    F(g)(alpha_Y(f)) = F(g)(F(f)(a)) = F(g circle f)(a) = alpha_Z(g circle f) = alpha_Z(g_*(f))
+  $
 
   *Step 2: 単射性*
 
@@ -103,7 +105,7 @@
 #theorem(title: "米田埋め込み定理")[
   対応
   $$ yen: cal(C) -> bold("Set")^(cal(C)^op), quad X mapsto h^X $$
-  は、**充満忠実本質的全射** な関手である。すなわち、$yen$ は圏の同値を誘導する。
+  は、*充満忠実本質的全射* な関手である。すなわち、$yen$ は圏の同値を誘導する。
 
   射についても：射 $f: X -> Y$ は自然変換 $h^f: h^X arrow.r.double h^Y$ に対応される。具体的には、各 $Z in cal(C)$ に対して $(h^f)_Z: cal(C)(X, Z) -> cal(C)(Y, Z)$ は $(h^f)_Z(g) := f compose g$ で定義される。
 ]
@@ -111,15 +113,15 @@
 #corollary(title: "対象の同型性とHom関手")[
   米田埋め込みが充満忠実であるという事実から直接導かれる：
   $$ h^X approx h^Y iff X approx Y $$
-  
-  **言い換え**：対象が同型であることと、対応するHom関手が自然同型であることは同義である。
+
+  *言い換え*：対象が同型であることと、対応するHom関手が自然同型であることは同義である。
 ]
 
 #theorem(title: "米田的対象の特徴づけ")[
   従来の集合論では、対象は「要素の集合」として内部的に定義される。米田埋め込みの帰結として、圏論では対象を外部的に特徴づけることができる：
-  
-  **対象 $X$ は、すべての射 $f: X -> Y$ （$Y$ が変化）の族 $\{cal(C)(X, Y)\}_{Y in cal(C)}$ によって完全に決定される。**
-  
+
+  *対象 $X$ は、すべての射 $f: X -> Y$ （$Y$ が変化）の族 $\{cal(C)(X, Y)\}_{Y in cal(C)}$ によって完全に決定される。*
+
   これは Leibniz の原理「同じものはすべてを共有する」の圏論的具現化である。
 ]
 

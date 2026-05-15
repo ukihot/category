@@ -3,18 +3,23 @@
 #show: ieee.with(
   title: [圏論精義(上)],
   abstract: [Category Theory: Essential Foundations, Volume I develops category theory as a precise mathematical language.
-Objects, morphisms, functors, natural transformations, and universal constructions are introduced in a staged and axiomatic manner. Emphasis is placed on commutative diagrams and structural correspondence, clarifying what category theory describes and what it deliberately abstracts away.
-This volume establishes the basic grammar required to reason categorically across mathematical domains.],
+    Objects, morphisms, functors, natural transformations, and universal constructions are introduced in a staged and axiomatic manner. Emphasis is placed on commutative diagrams and structural correspondence, clarifying what category theory describes and what it deliberately abstracts away.
+    This volume establishes the basic grammar required to reason categorically across mathematical domains.],
   authors: (
     (
       name: "Yu Tokunaga",
       department: [Founder],
       organization: [Jocarium Productions],
       location: [Hiroshima, Japan],
-      email: "tokunaga@jocarium.productions"
+      email: "tokunaga@jocarium.productions",
     ),
   ),
-  index-terms: ("Scientific writing", "Typesetting", "Document creation", "Syntax"),
+  index-terms: (
+    "Scientific writing",
+    "Typesetting",
+    "Document creation",
+    "Syntax",
+  ),
   bibliography: bibliography("refs.bib"),
   figure-supplement: [Fig.],
 )

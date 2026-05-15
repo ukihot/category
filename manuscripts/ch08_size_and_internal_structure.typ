@@ -1,6 +1,6 @@
 #import "@preview/theorion:0.4.1": *
 #import cosmos.clouds: *
-#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #show: show-theorion
 
 上巻では、対象と射、関手、自然変換、極限、随伴という圏論の基本文法を、できるかぎり「中身を見ない」形で展開した。しかし圏論を基礎言語として用いる段階では、圏そのものをどの集合論的階層に置くか、また圏の内部にどのような構造を許すかを明確にしなければならない。本章の目的は、圏論の実践に不可欠な二つの基礎技法、すなわち *サイズ管理* と *内部構造の抽出* を整理することである。
@@ -128,10 +128,13 @@
   の族であり、任意の射 $f: C -> C'$ に対して次の自然性四角形を可換にするものとして定義される。
 
   #align(center)[
-    #diagram(cell-size: 18mm, $
-      F(C) edge(F(f), ->) edge("d", alpha_C, ->) & F(C') edge("d", alpha_(C'), ->) \
-      G(C) edge(G(f), ->) & G(C')
-    $)
+    #diagram(
+      cell-size: 18mm,
+      $
+        F(C) edge(F(f), ->) edge("d", alpha_C, ->) & F(C') edge("d", alpha_(C'), ->) \
+                               G(C) edge(G(f), ->) & G(C')
+      $,
+    )
   ]
 
   $cal(C)$ の対象が集合であり、各 Hom が集合であるため、自然変換全体は集合の積の部分集合として表される。
@@ -162,7 +165,9 @@ $bold("Cat")$ は単なる例ではない。自然変換を2-射として加え�
 
 #proof[
   直積 $cal(C) times cal(D)$ は対象と射を成分ごとに定義する。指数対象は関手圏である。自然な同型
-  $ bold("Cat")(cal(A) times cal(C), cal(D)) approx bold("Cat")(cal(A), [cal(C), cal(D)]) $
+  $
+    bold("Cat")(cal(A) times cal(C), cal(D)) approx bold("Cat")(cal(A), [cal(C), cal(D)])
+  $
   は、二変数関手とカリー化された関手の対応から得られる。
 ]
 
@@ -182,10 +187,13 @@ $bold("Cat")$ は単なる例ではない。自然変換を2-射として加え�
   これらは結合律と単位律を表す可換図式を満たす。
 
   #align(center)[
-    #diagram(cell-size: 20mm, $
-      C_1 times_(C_0) C_1 edge(m, ->) edge("d", pi_2, ->) & C_1 edge("d", t, ->) \
-      C_1 edge(s, ->) & C_0
-    $)
+    #diagram(
+      cell-size: 20mm,
+      $
+        C_1 times_(C_0) C_1 edge(m, ->) edge("d", pi_2, ->) & C_1 edge("d", t, ->) \
+                                            C_1 edge(s, ->) & C_0
+      $,
+    )
   ]
 ]
 

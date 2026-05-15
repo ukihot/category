@@ -1,6 +1,6 @@
 #import "@preview/theorion:0.4.1": *
 #import cosmos.clouds: *
-#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #show: show-theorion
 
 上巻で扱った圏では、対象と射が基本的な構成要素であった。しかし圏論を実際に使うと、射の間にも射が現れる。関手の間には自然変換があり、自然変換の間には修正がある。随伴も、等式としてではなく同型やさらに高次の同値として成り立つことが多い。高次圏論は、この階層を理論の中心に据える。
@@ -75,15 +75,21 @@
   が存在し、三角等式を満たすことをいう。
 
   #align(center)[
-    #diagram(cell-size: 20mm, $
-      f edge(eta f, ->) edge("dr", id_f, ->) & g f f edge("d", g epsilon, ->) \
-      & f
-    $)
+    #diagram(
+      cell-size: 20mm,
+      $
+        f edge(eta f, ->) edge("dr", id_f, ->) & g f f edge("d", g epsilon, ->) \
+                                               & f
+      $,
+    )
     #h(2em)
-    #diagram(cell-size: 20mm, $
-      g edge(g eta, ->) edge("dr", id_g, ->) & g f g edge("d", epsilon g, ->) \
-      & g
-    $)
+    #diagram(
+      cell-size: 20mm,
+      $
+        g edge(g eta, ->) edge("dr", id_g, ->) & g f g edge("d", epsilon g, ->) \
+                                               & g
+      $,
+    )
   ]
 ]
 
@@ -145,10 +151,13 @@ Kan 拡張の公式に現れるコンマ圏は、対象の上または下にあ�
   - *射*：$(A, B, u) -> (A', B', u')$ は、射の組 $(a: A -> A', b: B -> B')$ であって、次の可換図式を満たすものである：
 
     #align(center)[
-      #diagram(cell-size: 18mm, $
-        F(A) edge(F(a), ->) edge("d", u, ->) & F(A') edge("d", u', ->) \
-        G(B) edge(G(b), ->) & G(B')
-      $)
+      #diagram(
+        cell-size: 18mm,
+        $
+          F(A) edge(F(a), ->) edge("d", u, ->) & F(A') edge("d", u', ->) \
+                           G(B) edge(G(b), ->) & G(B')
+        $,
+      )
     ]
 ]
 #example[

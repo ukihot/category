@@ -1,6 +1,6 @@
 #import "@preview/theorion:0.4.1": *
 #import cosmos.clouds: *
-#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #show: show-theorion
 
 圏論の基本概念は、対象の内部を見ない。しかし代数学や幾何学では、射そのものを足し合わせ、差を取り、核や余核を計算する必要がある。本章では、そのような線形的な操作が可能な圏を扱う。加法圏、アーベル圏、完全列、複体、導来圏は、現代数学におけるホモロジー的思考の基礎である。
@@ -62,7 +62,33 @@
 #definition(title: "Kernel と Cokernel")[
   射 $f: A -> B$ に対し、$f$ の *kernel* とは、射 $k: K -> A$ であって $f k = 0$ を満たし、任意の $u: X -> A$ で $f u = 0$ となるものが一意に $k$ を通って分解するものをいう。
 
+  #align(center, fletcher.diagram(
+    spacing: 34pt,
+    node((0, 1), $X$),
+    node((1, 1), $K$),
+    node((2, 1), $A$),
+    node((3, 1), $B$),
+    edge((0, 1), (1, 1), $exists!$, "-->"),
+    edge((1, 1), (2, 1), $k$, "->"),
+    edge((0, 1), (2, 1), $u$, "->"),
+    edge((2, 1), (3, 1), $f$, "->"),
+    edge((0, 1), (3, 1), $0$, "->"),
+  ))
+
   双対的に、$f$ の *cokernel* とは、射 $q: B -> Q$ であって $q f = 0$ を満たし、任意の $v: B -> Y$ で $v f = 0$ となるものが一意に $q$ を通って分解するものをいう。
+
+  #align(center, fletcher.diagram(
+    spacing: 34pt,
+    node((0, 1), $A$),
+    node((1, 1), $B$),
+    node((2, 1), $Q$),
+    node((3, 1), $Y$),
+    edge((0, 1), (1, 1), $f$, "->"),
+    edge((1, 1), (2, 1), $q$, "->"),
+    edge((2, 1), (3, 1), $exists!$, "-->"),
+    edge((1, 1), (3, 1), $v$, "->"),
+    edge((0, 1), (3, 1), $0$, "->"),
+  ))
 ]
 
 #remark[
@@ -101,9 +127,12 @@
 #theorem(title: "射の標準分解")[
   アーベル圏における任意の射 $f: A -> B$ は
   #align(center)[
-    #diagram(cell-size: 18mm, $
-      A edge(->>) & op("coim")(f) edge(approx, ->) & op("im")(f) edge("hook-->") & B
-    $)
+    #diagram(
+      cell-size: 18mm,
+      $
+        A edge(->>) & op("coim")(f) edge(approx, ->) & op("im")(f) edge("hook-->") & B
+      $,
+    )
   ]
   と分解される。
 ]
@@ -134,9 +163,12 @@
 
 特に
 #align(center)[
-  #diagram(cell-size: 14mm, $
-    0 edge(->) & A edge(i, ->) & B edge(p, ->) & C edge(->) & 0
-  $)
+  #diagram(
+    cell-size: 14mm,
+    $
+      0 edge(->) & A edge(i, ->) & B edge(p, ->) & C edge(->) & 0
+    $,
+  )
 ]
 が完全であるとき、これを *短完全列* という。このとき $i$ は $A$ を $B$ の部分対象として実現し、$p$ は $B$ から商 $C$ を取り出す。したがって $B$ は $A$ による $C$ の拡張と見なせる。
 
@@ -163,10 +195,13 @@
 #lemma(title: "五項補題")[
   アーベル圏における可換図式
   #align(center)[
-    #diagram(cell-size: 13mm, $
-      A_1 edge(->) edge("d", a_1, ->) & A_2 edge(->) edge("d", a_2, ->) & A_3 edge(->) edge("d", a_3, ->) & A_4 edge(->) edge("d", a_4, ->) & A_5 edge("d", a_5, ->) \
-      B_1 edge(->) & B_2 edge(->) & B_3 edge(->) & B_4 edge(->) & B_5
-    $)
+    #diagram(
+      cell-size: 13mm,
+      $
+        A_1 edge(->) edge("d", a_1, ->) & A_2 edge(->) edge("d", a_2, ->) & A_3 edge(->) edge("d", a_3, ->) & A_4 edge(->) edge("d", a_4, ->) & A_5 edge("d", a_5, ->) \
+        B_1 edge(->) & B_2 edge(->) & B_3 edge(->) & B_4 edge(->) & B_5
+      $,
+    )
   ]
   を考える。上下の列が完全で、縦射 $A_i -> B_i$ のうち $i=1,2,4,5$ が同型であるとする。適切な単射性・全射性の条件が満たされれば、中央の縦射 $A_3 -> B_3$ も同型である。
 ]
@@ -174,15 +209,18 @@
 #lemma(title: "蛇の補題")[
   アーベル圏における短完全列の射
   #align(center)[
-    #diagram(cell-size: 14mm, $
-      0 edge(->) & A edge(->) edge("d", a, ->) & B edge(->) edge("d", b, ->) & C edge(->) edge("d", c, ->) & 0 \
-      0 edge(->) & A' edge(->) & B' edge(->) & C' edge(->) & 0
-    $)
+    #diagram(
+      cell-size: 14mm,
+      $
+        0 edge(->) & A edge(->) edge("d", a, ->) & B edge(->) edge("d", b, ->) & C edge(->) edge("d", c, ->) & 0 \
+        0 edge(->) & A' edge(->) & B' edge(->) & C' edge(->) & 0
+      $,
+    )
   ]
   が与えられると、自然な接続射により長完全列
   $
     0 -> op("ker")(a) -> op("ker")(b) -> op("ker")(c)
-      -> op("coker")(a) -> op("coker")(b) -> op("coker")(c) -> 0
+    -> op("coker")(a) -> op("coker")(b) -> op("coker")(c) -> 0
   $
   が得られる。
 ]
@@ -213,10 +251,13 @@
   複体の射 $f: C_bullet -> D_bullet$ は、各次数の射 $f_n: C_n -> D_n$ で微分と可換なものをいう。
 
   #align(center)[
-    #diagram(cell-size: 16mm, $
-      C_n edge(d_n, ->) edge("d", f_n, ->) & C_(n-1) edge("d", f_(n-1), ->) \
-      D_n edge(d_n, ->) & D_(n-1)
-    $)
+    #diagram(
+      cell-size: 16mm,
+      $
+        C_n edge(d_n, ->) edge("d", f_n, ->) & C_(n-1) edge("d", f_(n-1), ->) \
+                           D_n edge(d_n, ->) & D_(n-1)
+      $,
+    )
   ]
 
   二つの複体射 $f,g$ が *鎖ホモトピック* であるとは、射 $h_n: C_n -> D_(n+1)$ が存在して
@@ -247,7 +288,7 @@
 ]
 
 #example[
-  群 $G$ に対して不変元関手 $(-)^G$ は左完全であり、その右導来関手は群コホモロジーを与える。空間 $X$ 上の層の大域切断関手 $Gamma(X,-)$ の右導来関手は層コホモロジー $H^n(X,-)$ である。
+  群 $G$ に対して不変元関手 $(-)^G$ は左完全であり、その右導来関手は群コホモロジーを与える。空間 $X$ 上の層の大域切断関手 $Gamma(X, -)$ の右導来関手は層コホモロジー $H^n(X,-)$ である。
 ]
 
 == 導来圏

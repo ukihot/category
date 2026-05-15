@@ -1,5 +1,6 @@
 #import "@preview/theorion:0.4.1": *
 #import cosmos.clouds: *
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #show: show-theorion
 
 随伴 (Adjunction) は、二つの圏の間に存在する「最も自然な対応関係」を記述する概念である。一対の関手が互いに「最良の近似」として機能するとき、それらは随伴の関係にあるという。本章では、この関係を Hom 集合、自然変換、および普遍性の三つの視点から定義し、その意義を検討する。
@@ -13,34 +14,46 @@
   （または $G$ が $F$ の *右随伴* であるとは）、
   任意の $X in "Ob"(cal(C))$ と $Y in "Ob"(cal(D))$ に対して、
   次の全単射が存在することである：
-  
+
   $
     phi_(X,Y):
     cal(D)(F(X), Y)
     arrow.r(~)
     cal(C)(X, G(Y))
   $
-  
+
   さらに、この全単射が $X$ と $Y$ の両方について *自然* であること。
-  
+
   - *X について自然*：
     任意の $f: X' -> X$ に対して、次の図式が可換：
-    
-    $
-                    cal(D)(F(X), Y) & arrow.r^(phi_(X,Y))  &            cal(C)(X, G(Y)) \
-      arrow.b_(h => h compose F(f)) &                      & arrow.b_(k => k compose f) \
-                   cal(D)(F(X'), Y) & arrow.r^(phi_(X',Y)) &           cal(C)(X', G(Y))
-    $
-  
+
+    #align(center, fletcher.diagram(
+      spacing: 48pt,
+      node((0, 1), $cal(D)(F(X), Y)$),
+      node((1, 1), $cal(C)(X, G(Y))$),
+      node((0, 0), $cal(D)(F(X'), Y)$),
+      node((1, 0), $cal(C)(X', G(Y))$),
+      edge((0, 1), (1, 1), $phi_(X,Y)$, "->"),
+      edge((0, 1), (0, 0), $h |-> h compose F(f)$, "->"),
+      edge((1, 1), (1, 0), $k |-> k compose f$, "->"),
+      edge((0, 0), (1, 0), $phi_(X',Y)$, "->"),
+    ))
+
   - *Y について自然*：
     任意の $g: Y -> Y'$ に対して、次の図式が可換：
-    
-    $
-                 cal(D)(F(X), Y) & arrow.r^(phi_(X,Y))  &               cal(C)(X, G(Y)) \
-      arrow.b_(h => g compose h) &                      & arrow.b_(k => G(g) compose k) \
-                cal(D)(F(X), Y') & arrow.r^(phi_(X,Y')) &              cal(C)(X, G(Y'))
-    $
-  
+
+    #align(center, fletcher.diagram(
+      spacing: 48pt,
+      node((0, 1), $cal(D)(F(X), Y)$),
+      node((1, 1), $cal(C)(X, G(Y))$),
+      node((0, 0), $cal(D)(F(X), Y')$),
+      node((1, 0), $cal(C)(X, G(Y'))$),
+      edge((0, 1), (1, 1), $phi_(X,Y)$, "->"),
+      edge((0, 1), (0, 0), $h |-> g compose h$, "->"),
+      edge((1, 1), (1, 0), $k |-> G(g) compose k$, "->"),
+      edge((0, 0), (1, 0), $phi_(X,Y')$, "->"),
+    ))
+
   この関係を $F tack.r G$ と表記する。
 ]
 
@@ -56,6 +69,18 @@ Hom 集合の同型を自然変換の言葉で書き換えると、随伴の動�
   随伴 $F tack G$ に随伴する二つの自然変換を次のように定義する：
   - *単位* (unit) $eta: 1_bold(C) -> G compose F$
   - *余単位* (counit) $epsilon: F compose G -> 1_bold(D)$
+
+  各成分は次の射として表される：
+
+  #align(center, fletcher.diagram(
+    spacing: 42pt,
+    node((0, 0), $X$),
+    node((1, 0), $G F X$),
+    node((3, 0), $F G Y$),
+    node((4, 0), $Y$),
+    edge((0, 0), (1, 0), $eta_X$, "->"),
+    edge((3, 0), (4, 0), $epsilon_Y$, "->"),
+  ))
 ]
 
 #footnote[
@@ -70,6 +95,22 @@ Hom 集合の同型を自然変換の言葉で書き換えると、随伴の動�
   次の二つの合成図式が恒等変換になることが、随伴であるための必要十分条件である：
   1. $G epsilon compose eta G = id_G$
   2. $epsilon F compose F eta = id_F$
+
+  #align(center, fletcher.diagram(
+    spacing: 42pt,
+    node((0, 1), $G$),
+    node((1, 1), $G F G$),
+    node((1, 0), $G$),
+    node((3, 1), $F$),
+    node((4, 1), $F G F$),
+    node((4, 0), $F$),
+    edge((0, 1), (1, 1), $eta G$, "->"),
+    edge((1, 1), (1, 0), $G epsilon$, "->"),
+    edge((0, 1), (1, 0), $id_G$, "->"),
+    edge((3, 1), (4, 1), $F eta$, "->"),
+    edge((4, 1), (4, 0), $epsilon F$, "->"),
+    edge((3, 1), (4, 0), $id_F$, "->"),
+  ))
 ]
 
 #tip-box(title: "物理的な比喩：往復の整合性")[
@@ -85,6 +126,22 @@ Hom 集合の同型を自然変換の言葉で書き換えると、随伴の動�
   - 自由関手 $F: bold("Set") -> bold("Grp")$：集合の要素から自由群を生成する。
 
   このとき $F tack U$ が成り立つ。これは、「自由群 $F(S)$ から群 $G$ への群準同型」を定めることは、「集合 $S$ から集合 $U(G)$ への単なる写像」を定めることと完全に等価であるという事実を、随伴の言葉で表現したものである。
+
+  #align(center, fletcher.diagram(
+    spacing: 46pt,
+    node((0, 1), $bold("Set")$),
+    node((1, 1), $bold("Grp")$),
+    node((0, 0), $S$),
+    node((1, 0), $F(S)$),
+    node((2, 0), $G$),
+    node((3, 0), $U(G)$),
+    edge((0, 1), (1, 1), $F$, "->"),
+    edge((1, 1), (0, 1), $U$, "->"),
+    edge((0, 0), (3, 0), $u$, "->"),
+    edge((1, 0), (2, 0), $bar(u)$, "->"),
+    edge((0, 0), (1, 0), $eta_S$, "->"),
+    edge((2, 0), (3, 0), $"forget"$, "->"),
+  ))
 ]
 
 #important-box(title: "普遍性と随伴の結合")[

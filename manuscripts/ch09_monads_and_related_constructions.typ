@@ -2,7 +2,7 @@
 #import cosmos.clouds: *
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.1": *
-#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #show: show-theorion
 #show: codly-init.with()
 #codly(languages: codly-languages)
@@ -17,6 +17,16 @@
 $ G F G F arrow.r^(G epsilon F) G F $
 という自然変換が得られる。
 
+#align(center, fletcher.diagram(
+  spacing: 42pt,
+  node((0, 0), $G F G F$),
+  node((1, 0), $G F$),
+  node((3, 0), $T T$),
+  node((4, 0), $T$),
+  edge((0, 0), (1, 0), $G epsilon F$, "->"),
+  edge((3, 0), (4, 0), $mu$, "->"),
+))
+
 #definition(title: "モナド")[
   圏 $cal(C)$ 上の *モナド* とは三つ組 $(T, eta, mu)$ である。
 
@@ -27,17 +37,23 @@ $ G F G F arrow.r^(G epsilon F) G F $
   これらは次の図式、すなわち結合律と単位律を満たす。
 
   #align(center)[
-    #diagram(cell-size: 20mm, $
-      T T T edge(T mu, ->) edge("d", mu T, ->) & T T edge("d", mu, ->) \
-      T T edge(mu, ->) & T
-    $)
+    #diagram(
+      cell-size: 20mm,
+      $
+        T T T edge(T mu, ->) edge("d", mu T, ->) & T T edge("d", mu, ->) \
+                                T T edge(mu, ->) & T
+      $,
+    )
   ]
 
   #align(center)[
-    #diagram(cell-size: 18mm, $
-      T edge(eta T, ->) edge("dr", id_T, ->) & T T edge("d", mu, ->) & T edge(T eta, <-) edge("dl", id_T, ->) \
-      & T
-    $)
+    #diagram(
+      cell-size: 18mm,
+      $
+        T edge(eta T, ->) edge("dr", id_T, ->) & T T edge("d", mu, ->) & T edge(T eta, <-) edge("dl", id_T, ->) \
+        & T
+      $,
+    )
   ]
 ]
 
@@ -84,9 +100,12 @@ $ G F G F arrow.r^(G epsilon F) G F $
   - 恒等射は $eta_X: X -> T X$
   - $f: X -> T Y$, $g: Y -> T Z$ の合成は
     #align(center)[
-      #diagram(cell-size: 16mm, $
-        X edge(f, ->) & T Y edge(T g, ->) & T T Z edge(mu_Z, ->) & T Z
-      $)
+      #diagram(
+        cell-size: 16mm,
+        $
+          X edge(f, ->) & T Y edge(T g, ->) & T T Z edge(mu_Z, ->) & T Z
+        $,
+      )
     ]
 ]
 
@@ -121,6 +140,24 @@ Kleisli 圏が「モナド的計算」を表すのに対し、Eilenberg--Moore �
   $
     a compose T a = a compose mu_A
   $
+
+  #align(center, fletcher.diagram(
+    spacing: 40pt,
+    node((0, 1), $A$),
+    node((1, 1), $T A$),
+    node((1, 0), $A$),
+    node((3, 1), $T T A$),
+    node((4, 1), $T A$),
+    node((3, 0), $T A$),
+    node((4, 0), $A$),
+    edge((0, 1), (1, 1), $eta_A$, "->"),
+    edge((1, 1), (1, 0), $a$, "->"),
+    edge((0, 1), (1, 0), $id_A$, "->"),
+    edge((3, 1), (4, 1), $T a$, "->"),
+    edge((3, 1), (3, 0), $mu_A$, "->"),
+    edge((4, 1), (4, 0), $a$, "->"),
+    edge((3, 0), (4, 0), $a$, "->"),
+  ))
 ]
 
 #definition(title: "Eilenberg--Moore 圏")[
@@ -131,10 +168,13 @@ Kleisli 圏が「モナド的計算」を表すのに対し、Eilenberg--Moore �
   を満たす、すなわち次の図式を可換にするものとする。
 
   #align(center)[
-    #diagram(cell-size: 18mm, $
-      T A edge(T f, ->) edge("d", a, ->) & T B edge("d", b, ->) \
-      A edge(f, ->) & B
-    $)
+    #diagram(
+      cell-size: 18mm,
+      $
+        T A edge(T f, ->) edge("d", a, ->) & T B edge("d", b, ->) \
+                             A edge(f, ->) & B
+      $,
+    )
   ]
 
   これらからなる圏を $cal(C)^T$ と書き、*Eilenberg--Moore 圏* という。

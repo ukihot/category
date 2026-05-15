@@ -9,9 +9,9 @@
 二つの関手 $F, G: cal(C) -> cal(D)$ があるとき、それらを結ぶ「橋」を架ける。
 
 #definition(title: "自然変換 (Natural Transformation)")[
-  圏 $cal(C)$ から $cal(D)$ への二つの関手 $F, G: cal(C) -> cal(D)$ に対し、**自然変換** $alpha: F arrow.r.double G$ とは、各対象 $X in op("Ob")(cal(C))$ に対して、$cal(D)$ の射
+  圏 $cal(C)$ から $cal(D)$ への二つの関手 $F, G: cal(C) -> cal(D)$ に対し、*自然変換* $alpha: F arrow.r.double G$ とは、各対象 $X in op("Ob")(cal(C))$ に対して、$cal(D)$ の射
   $$alpha_X : F(X) -> G(X)$$
-  を割り当てた族 ${alpha_X}_{X in op("Ob")(cal(C))}$ であり、以下の **自然性条件** を満たす：
+  を割り当てた族 ${alpha_X}_{X in op("Ob")(cal(C))}$ であり、以下の *自然性条件* を満たす：
 
   任意の射 $f: X -> Y in cal(C)$ に対して、以下の図式が可換である：
   $$
@@ -43,7 +43,7 @@
   自然変換 $alpha: F -> G$ に対して、$f: X -> Y$ を任意の射とするとき、以下の二つの経路は同じ射をもたらす：
   1. 経路1：$F(X)$ から $F(Y)$ へ $F(f)$ で移動してから $alpha_Y$ で変換
   2. 経路2：$F(X)$ から $alpha_X$ で変換してから $G(X)$ から $G(Y)$ へ $G(f)$ で移動
-  
+
   すなわち、圏論的言語では $alpha$ は「異なる道順で同じ結果に到達できる」ことを保証する。
 ]
 

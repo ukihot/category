@@ -24,6 +24,20 @@
   figure-supplement: [Fig.],
 )
 
+#set page(
+  header: context {
+    let h1s = query(heading.where(level: 1, outlined: true).before(here()))
+    // outlineが生成する見出しはoutlined: falseなので除外される
+    if h1s.len() > 0 {
+      set text(size: 9pt, gray.darken(20%))
+      align(left, h1s.last().body)
+    }
+  },
+  footer: context {
+    align(center, counter(page).display()) // 中央下にページ番号
+  },
+)
+
 #outline(depth: 2)
 
 #pagebreak()

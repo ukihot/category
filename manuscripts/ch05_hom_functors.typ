@@ -129,23 +129,23 @@
 
   あとは $phi_Y(f) = F(f)(u)$ を示せばよい。$phi$ の自然性より，射 $f: X -> Y$ に対して次の図式が可換：
 
-#align(center)[
-  #diagram(
-    spacing: (3cm, 2cm), // 横の間隔を広めにとって見やすく
-    
-    // ノードの配置
-    node((0, 0), $cal(C)(X, X)$, name: <XX>),
-    node((1, 0), $cal(C)(X, Y)$, name: <XY>),
-    node((0, 1), $F(X)$, name: <FX>),
-    node((1, 1), $F(Y)$, name: <FY>),
-    
-    // エッジ（矢印）の配置
-    edge(<XX>, <XY>, $f_*$, "->"),
-    edge(<XX>, <FX>, $phi_X$, "->"),
-    edge(<XY>, <FY>, $phi_Y$, "->"),
-    edge(<FX>, <FY>, $F(f)$, "->"),
-  )
-]
+  #align(center)[
+    #diagram(
+      spacing: (3cm, 2cm), // 横の間隔を広めにとって見やすく
+
+      // ノードの配置
+      node((0, 0), $cal(C)(X, X)$, name: <XX>),
+      node((1, 0), $cal(C)(X, Y)$, name: <XY>),
+      node((0, 1), $F(X)$, name: <FX>),
+      node((1, 1), $F(Y)$, name: <FY>),
+
+      // エッジ（矢印）の配置
+      edge(<XX>, <XY>, $f_*$, "->"),
+      edge(<XX>, <FX>, $phi_X$, "->"),
+      edge(<XY>, <FY>, $phi_Y$, "->"),
+      edge(<FX>, <FY>, $F(f)$, "->"),
+    )
+  ]
 
   $"id"_X in cal(C)(X, X)$ を追うと：
   $
@@ -238,13 +238,13 @@ $Psi(a)$ が自然変換であるとは，任意の射 $g: Y -> Z$ に対して�
 #align(center)[
   #diagram(
     spacing: (3.2cm, 2.2cm), // ラベルが重ならないよう少し広めに
-    
+
     // ノード（名前をつけて管理）
     node((0, 0), $cal(C)(X, Y)$, name: <XY>),
     node((1, 0), $cal(C)(X, Z)$, name: <XZ>),
-    node((0, 1), $F(Y)$,        name: <FY>),
-    node((1, 1), $F(Z)$,        name: <FZ>),
-    
+    node((0, 1), $F(Y)$, name: <FY>),
+    node((1, 1), $F(Z)$, name: <FZ>),
+
     // エッジ（矢印）
     edge(<XY>, <XZ>, $g_*$, "->"),
     edge(<XY>, <FY>, $Psi(a)_Y$, "->"),
@@ -267,12 +267,12 @@ $
 #align(center)[
   #diagram(
     spacing: (3cm, 2.2cm), // ラベルの高さに合わせて縦を少し広めに
-    
+
     node((0, 0), $cal(C)(X, X)$, name: <XX>),
     node((1, 0), $cal(C)(X, Y)$, name: <XY>),
     node((0, 1), $F(X)$, name: <FX>),
     node((1, 1), $F(Y)$, name: <FY>),
-    
+
     edge(<XX>, <XY>, $f_*$, "->"),
     edge(<XX>, <FX>, $alpha_X$, "->"),
     edge(<XY>, <FY>, $alpha_Y$, "->"),
@@ -299,13 +299,13 @@ $
 #align(center)[
   #diagram(
     spacing: (3.5cm, 2.2cm), // Nat(h^X, F) が長めなので横幅を広めに確保
-    
+
     // ノード設定
     node((0, 0), $op("Nat")(h^X, F)$, name: <NF>),
     node((1, 0), $F(X)$, name: <FX>),
     node((0, 1), $op("Nat")(h^X, G)$, name: <NG>),
     node((1, 1), $G(X)$, name: <GX>),
-    
+
     // エッジ設定
     edge(<NF>, <FX>, $Phi_F$, "->"),
     edge(<NF>, <NG>, $eta compose (-)$, "->"),
@@ -325,13 +325,13 @@ $
 #align(center)[
   #diagram(
     spacing: (3.8cm, 2.2cm), // ラベルの長さに合わせて横幅を広めに設定
-    
+
     // ノード定義
     node((0, 0), $op("Nat")(h^X, F)$, name: <NX>),
     node((1, 0), $F(X)$, name: <FX>),
     node((0, 1), $op("Nat")(h^{X'}, F)$, name: <NXprime>),
     node((1, 1), $F(X')$, name: <FXprime>),
-    
+
     // エッジ定義
     edge(<NX>, <FX>, $Phi$, "->"),
     edge(<NX>, <NXprime>, $(- compose h^f)$, "->"),
@@ -383,10 +383,10 @@ $bold("Set")^(cal(C))$ は，関手 $cal(C) -> bold("Set")$ を対象とし，�
 #align(center)[
   #diagram(
     spacing: (4cm, 2cm), // ラベルが長いので横幅を広めに
-    
+
     node((0, 0), $cal(C)(X', Z)$, name: <Xprime>),
     node((1, 0), $cal(C)(X, Z)$, name: <X>),
-    
+
     edge(<Xprime>, <X>, $(h^f)_Z = (- compose f)$, "->"),
   )
 ]
@@ -433,7 +433,7 @@ $bold("Set")^(cal(C))$ は，関手 $cal(C) -> bold("Set")$ を対象とし，�
 
 #proof[
   $(arrow.l.double)$：$X tilde.equiv X'$ であれば，同型射 $i: X -> X'$ と $i^(-1): X' -> X$ から $h^i: h^X' -> h^X$ と $h^(i^(-1)): h^X -> h^X'$ が互いに逆の自然変換となる。
-  
+
   $(arrow.r.double)$：自然同型 $phi: h^X xarrow(tilde) h^X'$ が与えられたとする。充満忠実性より，$phi = h^f$，$phi^(-1) = h^g$ となる射 $f: X' -> X$，$g: X -> X'$ が存在する。忠実性から $g compose f = "id"_X$，$f compose g = "id"_X'$ が従い $X tilde.equiv X'$。
 ]
 
@@ -442,17 +442,17 @@ $bold("Set")^(cal(C))$ は，関手 $cal(C) -> bold("Set")$ を対象とし，�
 #align(center)[
   #diagram(
     spacing: (3cm, 2cm),
-    
+
     // ノード（プライムの中括弧を削除）
     node((0, 0), $X$, name: <X>),
     node((1, 0), $X'$, name: <Xp>),
     node((0, 1), $h^X$, name: <hX>),
     node((1, 1), $h^X'$, name: <hXp>),
-    
+
     // エッジ（同型記号は tilde.equiv を使用）
     edge(<X>, <Xp>, $tilde.equiv$, "<->"),
     edge(<hX>, <hXp>, $tilde.equiv$, "<->"),
-    
+
     // 垂直の米田埋め込み
     edge(<X>, <hX>, $yen$, "->"),
     edge(<Xp>, <hXp>, $yen$, "->"),

@@ -1,0 +1,10 @@
+name = "judar"
+version = "0.1.0"
+defaultTargets = ["judar"]
+
+[[lean_lib]]
+name = "Judar"
+
+[[lean_exe]]
+name = "judar"
+root = "Main"
